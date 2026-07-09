@@ -1,229 +1,174 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight, ExternalLink, ChevronRight } from 'lucide-react';
 
-const Hero = () => {
-  return (
-    <section
-      id="home"
-      className="position-relative overflow-hidden d-flex align-items-center"
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-deep)'
-      }}
-    >
+const scrollToSection = (id) => {
+  if (id === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+};
 
-      ```
-      {/* Background Leopard Image */}
-      {/* Background Leopard Video */}
-      <motion.div
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5 }}
-        className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden"
-        style={{
-          zIndex: 1
-        }}
-      >
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  visible: (d = 0) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.75, delay: d, ease: [0.16, 1, 0.3, 1] },
+  }),
+};
 
-        {/* Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-100 h-100"
-          style={{
-            objectFit: 'cover',
-            opacity: 1,
-            filter: `
-      brightness(1)
-      contrast(1.05)
-      saturate(1.05)
-    `
-          }}
-        >
-          <source src="/videos/leopard.mp4" type="video/mp4" />
-        </video>
+const serviceRows = [
+  { icon: '🏢', name: 'ERP Systems',         badge: 'Enterprise', color: 'amber' },
+  { icon: '🤖', name: 'AI Solutions',         badge: 'Active',     color: 'green' },
+  { icon: '💻', name: 'Web Applications',     badge: 'Live',       color: 'green' },
+  { icon: '🏨', name: 'Hotel Management',     badge: 'Available',  color: 'blue'  },
+  { icon: '🌐', name: 'Business Websites',    badge: 'Available',  color: 'blue'  },
+];
 
-        {/* Dark Cinematic Overlay */}
-        <div
-          className="position-absolute top-0 start-0 w-100 h-100"
-          style={{
-            background:
-              'linear-gradient(to right, rgba(5,8,22,0.75) 15%, rgba(5,8,22,0.25) 50%, rgba(5,8,22,0.75) 100%)'
-          }}
-        />
+const Hero = () => (
+  <section id="home" className="hero-section" aria-label="Hero">
+    <div className="hero-bg-gradient" aria-hidden="true" />
+    <div className="hero-dot-grid" aria-hidden="true" />
 
-        {/* Cyan Glow */}
-        <div
-          className="position-absolute top-50 start-50 translate-middle"
-          style={{
-            width: '900px',
-            height: '900px',
-            background: 'rgba(var(--highlight-rgb),0.15)',
-            filter: 'blur(180px)',
-            pointerEvents: 'none'
-          }}
-        />
+    <div className="hero-content">
 
-      </motion.div>
+      {/* ── Left Column ── */}
+      <div className="hero-left">
 
-      {/* Grid Background */}
-      <div
-        className="position-absolute top-0 start-0 w-100 h-100"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-          backgroundSize: '70px 70px',
-          zIndex: 1
-        }}
-      />
+        <motion.div custom={0} initial="hidden" animate="visible" variants={fadeUp}>
+          <span className="hero-eyebrow">
+            <span className="dot" aria-hidden="true" />
+            Premium IT Company — India
+          </span>
+        </motion.div>
 
-      {/* Hero Content */}
-      <div
-        className="container position-relative"
-        style={{ zIndex: 3 }}
-      >
-        <div className="row align-items-center">
+        <motion.h1 className="hero-title" custom={0.1} initial="hidden" animate="visible" variants={fadeUp}>
+          Enterprise Software <br className="hero-title-br" />Built to Scale
+        </motion.h1>
 
-          {/* Left Content */}
-          <div className="col-lg-7">
+        <motion.p className="hero-subtitle" custom={0.22} initial="hidden" animate="visible" variants={fadeUp}>
+          LeopardX Technologies builds production-grade ERP systems, AI-powered applications,
+          and digital products for businesses that demand engineering excellence.
+        </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
-            >
+        <motion.div className="hero-buttons" custom={0.34} initial="hidden" animate="visible" variants={fadeUp}>
+          <motion.button
+            className="btn-black"
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => scrollToSection('contact')}
+          >
+            Start a Project <ArrowRight size={16} aria-hidden="true" />
+          </motion.button>
+          <motion.button
+            className="btn-outline-dark"
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => scrollToSection('portfolio')}
+          >
+            View Our Work <ExternalLink size={14} aria-hidden="true" />
+          </motion.button>
+        </motion.div>
 
-              {/* Badge */}
-              <span
-                className="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill border border-info text-info small fw-bold text-uppercase mb-4"
-                style={{
-                  background: 'rgba(var(--highlight-rgb),0.08)',
-                  backdropFilter: 'blur(12px)',
-                  letterSpacing: '2px'
-                }}
-              >
-                <span
-                  style={{
-                    width: '8px',
-                    height: '8px',
-                    background: 'var(--highlight-color)',
-                    borderRadius: '50%',
-                    boxShadow: '0 0 12px var(--highlight-color)'
-                  }}
-                />
-                Pioneering the Future
-              </span>
+        <motion.div className="hero-stats" custom={0.46} initial="hidden" animate="visible" variants={fadeUp}>
+          {[
+            { num: '5',  unit: '+', label: 'Projects Delivered' },
+            { num: '3',  unit: '+', label: 'Happy Clients'      },
+            { num: '3',  unit: '+', label: 'Tech Experts'       },
+          ].map((s) => (
+            <div className="hero-stat" key={s.label}>
+              <div className="hero-stat-number">{s.num}<span>{s.unit}</span></div>
+              <div className="hero-stat-label">{s.label}</div>
+            </div>
+          ))}
+        </motion.div>
 
-              {/* Main Heading */}
-              <h1
-                className="display-1 fw-black text-main mb-4"
-                style={{
-                  fontWeight: 900,
-                  lineHeight: 0.95,
-                  letterSpacing: '-3px'
-                }}
-              >
-                LEOPARD
-                <span className="text-highlight">
-                  X
-                </span>
-              </h1>
-
-              {/* Subtitle */}
-              <h2
-                className="text-info mb-4"
-                style={{
-                  fontWeight: 300,
-                  letterSpacing: '4px',
-                  textTransform: 'uppercase'
-                }}
-              >
-                Speed. Agility. Innovation.
-              </h2>
-
-              {/* Description */}
-              <p
-                className="lead text-white mb-5"
-                style={{
-                  maxWidth: '650px',
-                  lineHeight: 1.8,
-                  fontSize: '1.15rem'
-                }}
-              >
-                LeopardX is a futuristic AI technology company specializing
-                in high-performance software, intelligent systems,
-                and next-generation digital experiences.
-              </p>
-
-              {/* Buttons */}
-              <div className="d-flex flex-wrap gap-4">
-
-                {/* Primary Button */}
-                <motion.button
-                  onClick={() => window.location.href = '#contact'}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -3
-                  }}
-                  className="btn px-5 py-3 rounded-4 fw-bold text-uppercase d-flex align-items-center gap-2"
-                  style={{
-                    background: 'var(--highlight-color)',
-                    color: 'var(--bg-deep)',
-                    border: 'none',
-                    boxShadow: '0 0 30px rgba(var(--highlight-rgb),0.4)',
-                    letterSpacing: '1px'
-                  }}
-                >
-                  Launch Project
-                  <ArrowRight size={18} />
-                </motion.button>
-
-                {/* Secondary Button */}
-                <motion.button
-                  onClick={() => window.location.href = '#services'}
-                  whileHover={{
-                    scale: 1.05,
-                    y: -3
-                  }}
-                  className="btn px-5 py-3 rounded-4 fw-bold text-uppercase"
-                  style={{
-                    background: 'var(--glass)',
-                    border: '1px solid var(--glass-border)',
-                    color: 'var(--text-main)',
-                    backdropFilter: 'blur(12px)',
-                    letterSpacing: '1px'
-                  }}
-                >
-                  Explore Services
-                </motion.button>
-
-              </div>
-            </motion.div>
-          </div>
-
-        </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* ── Right Column — Dashboard Card ── */}
       <motion.div
-        animate={{ y: [0, 12, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="position-absolute bottom-0 start-50 translate-middle-x mb-4"
-        style={{
-          zIndex: 5,
-          color: 'var(--highlight-color)'
-        }}
+        className="hero-right"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        aria-hidden="true"
       >
-        <ChevronDown size={36} />
+        <div className="hero-visual">
+          {/* Stacked shadows */}
+          <div className="hero-card-shadow-1" />
+          <div className="hero-card-shadow-2" />
+
+          {/* Main card */}
+          <div className="hero-dash-card">
+
+            {/* Header */}
+            <div className="hero-dash-header">
+              <div className="hero-dash-logo">
+                <img src="/lx-logo.png" alt="LeopardX Technologies" />
+              </div>
+              <div>
+                <div className="hero-dash-company">LeopardX Technologies</div>
+                <div className="hero-dash-tagline">Enterprise Solutions Partner</div>
+              </div>
+              <div className="hero-dash-online">
+                <span className="hero-dash-online-dot" />
+                Live
+              </div>
+            </div>
+
+            {/* Service rows */}
+            <div className="hero-service-rows">
+              {serviceRows.map((s) => (
+                <div className="hero-service-row" key={s.name}>
+                  <div className="hero-service-row-left">
+                    <div className="hero-service-icon">{s.icon}</div>
+                    <span className="hero-service-name">{s.name}</span>
+                  </div>
+                  <span className={`hero-service-badge ${s.color}`}>{s.badge}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Metrics */}
+            <div className="hero-dash-metrics">
+              {[
+                { val: '10+',  lbl: 'Projects',    gold: false },
+                { val: '98%',  lbl: 'Satisfaction', gold: true  },
+                { val: '1yr+', lbl: 'Experience',   gold: false },
+              ].map((m) => (
+                <div className="hero-dash-metric" key={m.lbl}>
+                  <div className={`hero-dash-metric-val${m.gold ? ' gold' : ''}`}>{m.val}</div>
+                  <div className="hero-dash-metric-lbl">{m.lbl}</div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          {/* Floating badges */}
+          <div className="hero-float-card hero-float-1">
+            <div className="hero-float-icon">⚡</div>
+            Fast Delivery
+          </div>
+          <div className="hero-float-card hero-float-2">
+            <div className="hero-float-icon">🔒</div>
+            Secure &amp; Scalable
+          </div>
+        </div>
       </motion.div>
 
-    </section>
+    </div>
 
-  );
-};
+    {/* Scroll indicator */}
+    <motion.div
+      className="hero-scroll-indicator"
+      animate={{ y: [0, 7, 0] }}
+      transition={{ duration: 2.5, repeat: Infinity }}
+      aria-hidden="true"
+    >
+      <div className="scroll-mouse" />
+      <span>Scroll</span>
+    </motion.div>
+  </section>
+);
 
 export default Hero;

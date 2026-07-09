@@ -1,364 +1,195 @@
 import React from 'react';
-import {
-  Zap,
-  Twitter,
-  Linkedin,
-  Github,
-  Instagram,
-  ArrowUpRight
-} from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Twitter, Linkedin, Github, Instagram, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
+
+const scrollToSection = (id) => {
+  if (id === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+};
+
+const quickLinks = [
+  { label: 'Home',         id: 'home'         },
+  { label: 'About',        id: 'about'        },
+  { label: 'Services',     id: 'services'     },
+  { label: 'Portfolio',    id: 'portfolio'    },
+  { label: 'Technologies', id: 'technologies' },
+  { label: 'Process',      id: 'process'      },
+  { label: 'Contact',      id: 'contact'      },
+];
+
+const serviceLinks = [
+  'ERP Software',
+  'Web Applications',
+  'AI Integration',
+  'Hotel Management',
+  'Business Websites',
+  'UI/UX Design',
+];
+
+const socials = [
+  { Icon: Twitter,   href: '#', label: 'Twitter'   },
+  { Icon: Linkedin,  href: '#', label: 'LinkedIn'  },
+  { Icon: Github,    href: '#', label: 'GitHub'    },
+  { Icon: Instagram, href: '#', label: 'Instagram' },
+];
 
 const Footer = () => {
-
   return (
-    <footer
-      className="position-relative overflow-hidden pt-5"
-      style={{
-        background: 'var(--bg-deep)',
-        borderTop: '1px solid var(--glass-border)'
-      }}
-    >
+    <footer className="lx-footer" role="contentinfo">
 
-      {/* Background Glow */}
-      <div
-        className="position-absolute top-50 start-50 translate-middle"
-        style={{
-          width: '700px',
-          height: '700px',
-          background: 'rgba(var(--highlight-rgb),0.06)',
-          filter: 'blur(180px)',
-          zIndex: 0
-        }}
-      />
+      {/* Top section */}
+      <div className="footer-top">
+        <div className="lx-container">
+          <div className="footer-grid">
 
-      {/* Grid Background */}
-      <div
-        className="position-absolute top-0 start-0 w-100 h-100"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-          backgroundSize: '70px 70px',
-          zIndex: 0
-        }}
-      />
-
-      <div className="container position-relative" style={{ zIndex: 2 }}>
-
-        <div className="row g-5 pb-5">
-
-          {/* LEFT */}
-          <div className="col-lg-4 col-md-6">
-
-            {/* Logo */}
-            <a
-              href="#home"
-              className="d-flex align-items-center gap-3 text-decoration-none mb-4"
-            >
-
-              <div
-                className="d-flex align-items-center justify-content-center rounded-4"
-                style={{
-                  width: '60px',
-                  height: '60px',
-                  background: 'rgba(var(--highlight-rgb),0.08)',
-                  border: '1px solid rgba(var(--highlight-rgb),0.2)',
-                  boxShadow: '0 0 25px rgba(var(--highlight-rgb),0.25)',
-                  color: 'var(--highlight-color)'
-                }}
+            {/* Brand */}
+            <div className="footer-brand-col">
+              <button
+                className="footer-logo-wrap"
+                onClick={() => scrollToSection('home')}
+                aria-label="Back to top"
               >
-                <Zap size={28} />
+                <img
+                  src="/lx-logo.png"
+                  alt="LeopardX Technologies Logo"
+                  className="footer-logo-img"
+                  width="36"
+                  height="36"
+                />
+                <span className="footer-logo-text">
+                  LeopardX <span>Technologies</span>
+                </span>
+              </button>
+
+              <p className="footer-brand-desc">
+                We build modern websites, scalable ERP systems, AI-powered applications,
+                and digital products for businesses that demand excellence.
+              </p>
+
+              {/* Contact mini info */}
+              <div className="footer-contact-mini">
+                <a href="mailto:leopardxtechnology@gmail.com" className="footer-contact-row">
+                  <Mail size={13} aria-hidden="true" />
+                  leopardxtechnology@gmail.com
+                </a>
+                <a href="tel:+917823065239" className="footer-contact-row">
+                  <Phone size={13} aria-hidden="true" />
+                  +91 7823065239
+                </a>
+                <span className="footer-contact-row" style={{ cursor: 'default' }}>
+                  <MapPin size={13} aria-hidden="true" />
+                  Pune, Maharashtra, India
+                </span>
               </div>
 
-              <div>
-                <h2
-                  className="mb-0 fw-bold"
-                  style={{
-                    color: 'var(--text-main)',
-                    letterSpacing: '-1px'
-                  }}
-                >
-                  Leopard
-                  <span className="text-highlight">
-                    X
-                  </span>
-                </h2>
-
-                <small
-                  style={{
-                    color: 'var(--highlight-color)',
-                    letterSpacing: '2px'
-                  }}
-                >
-                  FUTURE TECHNOLOGY
-                </small>
+              <div className="footer-socials">
+                {socials.map(({ Icon, href, label }) => (
+                  <motion.a
+                    key={label}
+                    href={href}
+                    className="footer-social"
+                    aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                  >
+                    <Icon size={15} aria-hidden="true" />
+                  </motion.a>
+                ))}
               </div>
+            </div>
 
-            </a>
+            {/* Quick Links */}
+            <div>
+              <span className="footer-col-title">Navigation</span>
+              <ul className="footer-col-links">
+                {quickLinks.map((link) => (
+                  <li key={link.id}>
+                    <button
+                      className="footer-link"
+                      onClick={() => scrollToSection(link.id)}
+                      aria-label={`Go to ${link.label}`}
+                    >
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Text */}
-            <p
-              className="text-secondary mb-4"
-              style={{
-                lineHeight: '1.9',
-                maxWidth: '380px'
-              }}
-            >
-              LeopardX engineers futuristic digital ecosystems,
-              AI-powered applications, and immersive next-generation
-              experiences for visionary brands worldwide.
+            {/* Services */}
+            <div>
+              <span className="footer-col-title">Services</span>
+              <ul className="footer-col-links">
+                {serviceLinks.map((s) => (
+                  <li key={s}>
+                    <button
+                      className="footer-link"
+                      onClick={() => scrollToSection('services')}
+                      aria-label={`View ${s}`}
+                    >
+                      {s}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* CTA column */}
+            <div>
+              <span className="footer-col-title">Start a Project</span>
+              <p className="footer-cta-text">
+                Ready to build something great? Let's talk about your project.
+              </p>
+              <motion.button
+                className="footer-cta-btn"
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => scrollToSection('contact')}
+              >
+                Get In Touch
+              </motion.button>
+
+              {/* Response badge */}
+              <div className="footer-response-badge">
+                <span aria-hidden="true">✓</span>
+                Responds within 24 hours
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="footer-bottom">
+        <div className="lx-container">
+          <div className="footer-bottom-inner">
+            <p className="footer-copyright">
+              © {new Date().getFullYear()} LeopardX Technologies. All rights reserved.
             </p>
 
-            {/* Socials */}
-            <div className="d-flex gap-3">
-
-              {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
-
-                <a
-                  key={i}
-                  href="#"
-                  className="d-flex align-items-center justify-content-center rounded-circle text-decoration-none"
-                  style={{
-                    width: '50px',
-                    height: '50px',
-                    background: 'rgba(255,255,255,0.05)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                    backdropFilter: 'blur(12px)',
-                    color: 'var(--text-main)',
-                    transition: '0.4s ease'
-                  }}
-                >
-                  <Icon size={20} />
-                </a>
-
+            <div className="footer-legal">
+              {['Privacy Policy', 'Terms of Service'].map((item) => (
+                <a key={item} href="#" aria-label={item}>{item}</a>
               ))}
-
             </div>
 
-          </div>
-
-          {/* QUICK LINKS */}
-          <div className="col-lg-2 col-md-6">
-
-            <h5
-              className="fw-bold mb-4"
-              style={{
-                color: 'var(--highlight-color)',
-                letterSpacing: '2px'
-              }}
+            <motion.button
+              onClick={() => scrollToSection('home')}
+              className="footer-back-top"
+              whileHover={{ y: -3 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+              aria-label="Back to top"
             >
-              QUICK LINKS
-            </h5>
-
-            <ul className="list-unstyled d-flex flex-column gap-3">
-
-              {[
-                { name: 'Home', href: '#home' },
-                { name: 'About', href: '#about' },
-                { name: 'Services', href: '#services' },
-                { name: 'Portfolio', href: '#portfolio' },
-                { name: 'Contact', href: '#contact' }
-              ].map((item, index) => (
-
-                <li key={index}>
-
-                  <a
-                    href={item.href}
-                    className="text-decoration-none d-flex align-items-center gap-2"
-                    style={{
-                      color: '#9ca3af',
-                      transition: '0.3s ease'
-                    }}
-                  >
-                    <ArrowUpRight size={14} />
-                    {item.name}
-                  </a>
-
-                </li>
-
-              ))}
-
-            </ul>
-
+              <ArrowUp size={14} aria-hidden="true" />
+            </motion.button>
           </div>
-
-          {/* LEGAL */}
-          <div className="col-lg-2 col-md-6">
-
-            <h5
-              className="fw-bold mb-4"
-              style={{
-                color: 'var(--highlight-color)',
-                letterSpacing: '2px'
-              }}
-            >
-              LEGAL
-            </h5>
-
-            <ul className="list-unstyled d-flex flex-column gap-3">
-
-              {[
-                'Privacy Policy',
-                'Terms Of Service',
-                'Cookie Policy'
-              ].map((item, index) => (
-
-                <li key={index}>
-
-                  <a
-                    href="#"
-                    className="text-decoration-none d-flex align-items-center gap-2"
-                    style={{
-                      color: '#9ca3af',
-                      transition: '0.3s ease'
-                    }}
-                  >
-                    <ArrowUpRight size={14} />
-                    {item}
-                  </a>
-
-                </li>
-
-              ))}
-
-            </ul>
-
-          </div>
-
-          {/* NEWSLETTER */}
-          <div className="col-lg-4 col-md-6">
-
-            <div
-              className="p-4 rounded-5 h-100 position-relative overflow-hidden"
-              style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(18px)',
-                boxShadow: '0 0 40px rgba(var(--highlight-rgb),0.06)'
-              }}
-            >
-
-              {/* Glow */}
-              <div
-                className="position-absolute top-50 start-50 translate-middle"
-                style={{
-                  width: '220px',
-                  height: '220px',
-                  background: 'rgba(var(--highlight-rgb),0.08)',
-                  filter: 'blur(90px)'
-                }}
-              />
-
-              <div className="position-relative">
-
-                <h4
-                  className="fw-bold text-main mb-3"
-                >
-                  Join Our Newsletter
-                </h4>
-
-                <p
-                  className="text-secondary small mb-4"
-                  style={{
-                    lineHeight: '1.8'
-                  }}
-                >
-                  Subscribe for futuristic technology insights,
-                  AI innovations, and digital transformation updates.
-                </p>
-
-                {/* Input */}
-                <div className="d-flex flex-column gap-3">
-
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="form-control form-control-custom border-0 rounded-4 py-3 px-4"
-                    style={{
-                      border: '1px solid var(--glass-border)',
-                      backdropFilter: 'blur(12px)',
-                      boxShadow: 'none'
-                    }}
-                  />
-
-                  <button
-                    className="btn py-3 rounded-4 fw-bold text-uppercase"
-                    style={{
-                      background: 'var(--highlight-color)',
-                      color: 'var(--bg-deep)',
-                      border: 'none',
-                      letterSpacing: '2px',
-                      boxShadow: '0 0 30px rgba(var(--highlight-rgb),0.35)'
-                    }}
-                  >
-                    Subscribe Now
-                  </button>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
         </div>
-
-        {/* Bottom */}
-        <div
-          className="d-flex flex-column flex-md-row justify-content-between align-items-center py-4"
-          style={{
-            borderTop: '1px solid var(--glass-border)'
-          }}
-        >
-
-          <p
-            className="mb-3 mb-md-0"
-            style={{
-              color: '#6b7280',
-              letterSpacing: '1px'
-            }}
-          >
-            © {new Date().getFullYear()} LeopardX Technology.
-            All rights reserved.
-          </p>
-
-          <div className="d-flex gap-4">
-
-            <a
-              href="#"
-              className="text-decoration-none"
-              style={{
-                color: '#9ca3af'
-              }}
-            >
-              Privacy
-            </a>
-
-            <a
-              href="#"
-              className="text-decoration-none"
-              style={{
-                color: '#9ca3af'
-              }}
-            >
-              Terms
-            </a>
-
-            <a
-              href="#"
-              className="text-decoration-none"
-              style={{
-                color: '#9ca3af'
-              }}
-            >
-              Security
-            </a>
-
-          </div>
-
-        </div>
-
       </div>
+
     </footer>
   );
 };

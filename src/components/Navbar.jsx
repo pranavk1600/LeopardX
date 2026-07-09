@@ -1,123 +1,155 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom';
-import { Zap, Menu, X, Sun, Moon } from 'lucide-react';
-import { Navbar as BSNavbar, Nav, Container } from 'react-bootstrap';
-import { ThemeContext } from '../context/ThemeContext';
+import React, { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const NAV_LINKS = [
+  { label: 'Home', id: 'home' },
+  { label: 'About', id: 'about' },
+  { label: 'Services', id: 'services' },
+  { label: 'Portfolio', id: 'portfolio' },
+  { label: 'Technologies', id: 'technologies' },
+  { label: 'Contact', id: 'contact' },
+];
+
+const scrollToSection = (id) => {
+  if (id === 'home') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+  const el = document.getElementById(id);
+  if (el) {
+    const navbarHeight = 80;
+    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+};
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { theme, toggleTheme } = useContext(ThemeContext);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 60);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
+  const handleNavClick = (id) => {
+    setMobileOpen(false);
+    setTimeout(() => scrollToSection(id), 50);
+  };
+
   return (
-    <BSNavbar
-      expand="lg"
-      fixed="top"
-      variant={theme === 'dark' ? 'dark' : 'light'}
-      className={`navbar transition-all ${scrolled ? 'navbar-scrolled' : 'py-4'
-        }`}
-      expanded={expanded}
-      onToggle={() => setExpanded(!expanded)}
-    >
-      <Container>
+    <>
+      <nav className={`lx-navbar${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
+        <div className="lx-navbar-inner">
 
-        {/* Logo */}
-        <BSNavbar.Brand
-          as={NavLink}
-          to="/"
-          className="d-flex align-items-center gap-2"
-        >
-          <motion.div
-            initial={{ rotate: -20, scale: 0.8 }}
-            animate={{ rotate: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 200 }}
+          {/* Logo */}
+          <button
+            className="lx-logo"
+            onClick={() => handleNavClick('home')}
+            aria-label="Go to top"
           >
-            <Zap size={30} className="glow-text text-info" />
+            <img
+              src="/lx-logo.png"
+              alt="LeopardX Technologies Logo"
+              width="42"
+              height="42"
+            />
+            <span className="lx-logo-text">
+              LeopardX <span>Technologies</span>
+            </span>
+          </button>
+
+          {/* Desktop Nav */}
+          <ul className="lx-nav-links" role="list">
+            {NAV_LINKS.map((link) => (
+              <li key={link.id}>
+                <button
+                  className="lx-nav-link"
+                  onClick={() => handleNavClick(link.id)}
+                  aria-label={`Navigate to ${link.label}`}
+                >
+                  {link.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop CTA */}
+          <button
+            className="lx-nav-cta"
+            onClick={() => handleNavClick('contact')}
+            aria-label="Get in touch"
+          >
+            Get In Touch
+          </button>
+
+          {/* Hamburger */}
+          <button
+            className={`lx-hamburger${mobileOpen ? ' open' : ''}`}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
+
+        </div>
+      </nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="lx-mobile-menu open"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+          >
+            {NAV_LINKS.map((link, i) => (
+              <motion.button
+                key={link.id}
+                className="lx-mobile-link"
+                onClick={() => handleNavClick(link.id)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+              >
+                {link.label}
+              </motion.button>
+            ))}
+            <motion.button
+              className="lx-mobile-cta"
+              onClick={() => handleNavClick('contact')}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: NAV_LINKS.length * 0.06 }}
+            >
+              Get In Touch
+            </motion.button>
           </motion.div>
-
-          <span className="gradient-text fw-bold h3 mb-0">
-            LeopardX
-          </span>
-        </BSNavbar.Brand>
-
-        {/* Mobile Toggle */}
-        <BSNavbar.Toggle
-          aria-controls="basic-navbar-nav"
-          className="border-0 shadow-none"
-        >
-          {expanded ? (
-            <X className="text-main" />
-          ) : (
-            <Menu className="text-main" />
-          )}
-        </BSNavbar.Toggle>
-
-        <BSNavbar.Collapse id="basic-navbar-nav">
-
-          {/* Nav Links */}
-          <Nav className="ms-auto align-items-lg-center gap-lg-4">
-
-            <NavLink
-              to="/"
-              className="nav-link nav-link-custom py-2"
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              to="/about"
-              className="nav-link nav-link-custom py-2"
-            >
-              About
-            </NavLink>
-
-            <NavLink
-              to="/services"
-              className="nav-link nav-link-custom py-2"
-            >
-              Services
-            </NavLink>
-
-            <NavLink
-              to="/projects"
-              className="nav-link nav-link-custom py-2"
-            >
-              Projects
-            </NavLink>
-
-            <NavLink
-              to="/contact"
-              className="nav-link nav-link-custom py-2"
-            >
-              Contact
-            </NavLink>
-
-            {/* CTA Button */}
-            <NavLink
-              to="/contact"
-              className="mt-3 mt-lg-0 text-decoration-none"
-            >
-              <button className="btn btn-primary rounded-pill px-4 py-2">
-                Launch Project
-              </button>
-            </NavLink>
-
-          </Nav>
-        </BSNavbar.Collapse>
-      </Container>
-    </BSNavbar>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
