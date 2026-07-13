@@ -67,6 +67,7 @@ const Navbar = () => {
               alt="LeopardX Technologies Logo"
               width="42"
               height="42"
+              decoding="async"
             />
             <span className="lx-logo-text">
               LeopardX <span>Technologies</span>

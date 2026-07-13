@@ -56,6 +56,8 @@ const Footer = () => {
                   className="footer-logo-img"
                   width="36"
                   height="36"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <span className="footer-logo-text">
                   LeopardX <span>Technologies</span>

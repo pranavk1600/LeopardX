@@ -103,7 +103,14 @@ const Hero = () => (
             {/* Header */}
             <div className="hero-dash-header">
               <div className="hero-dash-logo">
-                <img src="/lx-logo.png" alt="LeopardX Technologies" />
+                <img 
+                  src="/lx-logo.png" 
+                  alt="LeopardX Technologies" 
+                  width="30"
+                  height="30"
+                  decoding="async"
+                  fetchpriority="high"
+                />
               </div>
               <div>
                 <div className="hero-dash-company">LeopardX Technologies</div>
