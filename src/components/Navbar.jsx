@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, NavLink } from 'react-router-dom';
 
 const NAV_LINKS = [
   { label: 'Home', id: 'home' },
@@ -9,19 +10,6 @@ const NAV_LINKS = [
   { label: 'Technologies', id: 'technologies' },
   { label: 'Contact', id: 'contact' },
 ];
-
-const scrollToSection = (id) => {
-  if (id === 'home') {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    return;
-  }
-  const el = document.getElementById(id);
-  if (el) {
-    const navbarHeight = 80;
-    const top = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-};
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -46,20 +34,16 @@ const Navbar = () => {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const handleNavClick = (id) => {
-    setMobileOpen(false);
-    setTimeout(() => scrollToSection(id), 50);
-  };
-
   return (
     <>
       <nav className={`lx-navbar${scrolled ? ' scrolled' : ''}`} aria-label="Main navigation">
         <div className="lx-navbar-inner">
 
           {/* Logo */}
-          <button
+          <Link
+            to="/"
             className="lx-logo"
-            onClick={() => handleNavClick('home')}
+            onClick={() => setMobileOpen(false)}
             aria-label="Go to top"
           >
             <img
@@ -72,31 +56,32 @@ const Navbar = () => {
             <span className="lx-logo-text">
               LeopardX <span>Technologies</span>
             </span>
-          </button>
+          </Link>
 
           {/* Desktop Nav */}
           <ul className="lx-nav-links" role="list">
             {NAV_LINKS.map((link) => (
               <li key={link.id}>
-                <button
-                  className="lx-nav-link"
-                  onClick={() => handleNavClick(link.id)}
+                <NavLink
+                  to={link.id === 'home' ? '/' : `/${link.id}`}
+                  className={({ isActive }) => `lx-nav-link${isActive ? ' active' : ''}`}
                   aria-label={`Navigate to ${link.label}`}
                 >
                   {link.label}
-                </button>
+                </NavLink>
               </li>
             ))}
           </ul>
 
           {/* Desktop CTA */}
-          <button
+          <Link
+            to="/contact"
             className="lx-nav-cta"
-            onClick={() => handleNavClick('contact')}
             aria-label="Get in touch"
+            style={{ textDecoration: 'none' }}
           >
             Get In Touch
-          </button>
+          </Link>
 
           {/* Hamburger */}
           <button
@@ -127,26 +112,37 @@ const Navbar = () => {
             aria-label="Mobile navigation"
           >
             {NAV_LINKS.map((link, i) => (
-              <motion.button
+              <motion.div
                 key={link.id}
-                className="lx-mobile-link"
-                onClick={() => handleNavClick(link.id)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06 }}
+                style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
               >
-                {link.label}
-              </motion.button>
+                <NavLink
+                  to={link.id === 'home' ? '/' : `/${link.id}`}
+                  className={({ isActive }) => `lx-mobile-link${isActive ? ' active' : ''}`}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </NavLink>
+              </motion.div>
             ))}
-            <motion.button
-              className="lx-mobile-cta"
-              onClick={() => handleNavClick('contact')}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: NAV_LINKS.length * 0.06 }}
+              style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
             >
-              Get In Touch
-            </motion.button>
+              <Link
+                to="/contact"
+                className="lx-mobile-cta"
+                onClick={() => setMobileOpen(false)}
+                style={{ textDecoration: 'none' }}
+              >
+                Get In Touch
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

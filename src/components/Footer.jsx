@@ -1,12 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Twitter, Linkedin, Github, Instagram, ArrowUp, Mail, MapPin, Phone } from 'lucide-react';
-
-const scrollToSection = (id) => {
-  if (id === 'home') { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-  const el = document.getElementById(id);
-  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
-};
 
 const quickLinks = [
   { label: 'Home',         id: 'home'         },
@@ -45,9 +40,9 @@ const Footer = () => {
 
             {/* Brand */}
             <div className="footer-brand-col">
-              <button
+              <Link
+                to="/"
                 className="footer-logo-wrap"
-                onClick={() => scrollToSection('home')}
                 aria-label="Back to top"
               >
                 <img
@@ -62,7 +57,7 @@ const Footer = () => {
                 <span className="footer-logo-text">
                   LeopardX <span>Technologies</span>
                 </span>
-              </button>
+              </Link>
 
               <p className="footer-brand-desc">
                 We build modern websites, scalable ERP systems, AI-powered applications,
@@ -109,13 +104,13 @@ const Footer = () => {
               <ul className="footer-col-links">
                 {quickLinks.map((link) => (
                   <li key={link.id}>
-                    <button
+                    <Link
+                      to={link.id === 'home' ? '/' : link.id === 'process' ? '/#process' : `/${link.id}`}
                       className="footer-link"
-                      onClick={() => scrollToSection(link.id)}
                       aria-label={`Go to ${link.label}`}
                     >
                       {link.label}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -127,13 +122,13 @@ const Footer = () => {
               <ul className="footer-col-links">
                 {serviceLinks.map((s) => (
                   <li key={s}>
-                    <button
+                    <Link
+                      to="/services"
                       className="footer-link"
-                      onClick={() => scrollToSection('services')}
                       aria-label={`View ${s}`}
                     >
                       {s}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -145,14 +140,16 @@ const Footer = () => {
               <p className="footer-cta-text">
                 Ready to build something great? Let's talk about your project.
               </p>
-              <motion.button
-                className="footer-cta-btn"
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => scrollToSection('contact')}
-              >
-                Get In Touch
-              </motion.button>
+              <Link to="/contact" style={{ textDecoration: 'none', display: 'inline-flex' }}>
+                <motion.span
+                  className="footer-cta-btn"
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{ display: 'inline-flex' }}
+                >
+                  Get In Touch
+                </motion.span>
+              </Link>
 
               {/* Response badge */}
               <div className="footer-response-badge">
@@ -180,7 +177,7 @@ const Footer = () => {
             </div>
 
             <motion.button
-              onClick={() => scrollToSection('home')}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="footer-back-top"
               whileHover={{ y: -3 }}
               transition={{ type: 'spring', stiffness: 300 }}
