@@ -171,9 +171,8 @@ const Footer = () => {
             </p>
 
             <div className="footer-legal">
-              {['Privacy Policy', 'Terms of Service'].map((item) => (
-                <a key={item} href="#" aria-label={item}>{item}</a>
-              ))}
+              <Link to="/privacy-policy" aria-label="Privacy Policy">Privacy Policy</Link>
+              <a href="#" aria-label="Terms of Service">Terms of Service</a>
             </div>
 
             <motion.button

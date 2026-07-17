@@ -6,6 +6,7 @@ import ServicesPage from './pages/ServicesPage';
 import ProjectsPage from './pages/ProjectsPage';
 import TechnologiesPage from './pages/TechnologiesPage';
 import ContactPage from './pages/ContactPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import NotFoundPage from './pages/NotFoundPage';
 import Analytics from './components/Analytics';
 import ScrollToTop from './components/ScrollToTop';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/portfolio" element={<ProjectsPage />} />
           <Route path="/technologies" element={<TechnologiesPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         </Route>
         
         <Route path="*" element={<NotFoundPage />} />
