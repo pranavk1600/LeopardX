@@ -23,10 +23,7 @@ const serviceLinks = [
 ];
 
 const socials = [
-  { Icon: Twitter,   href: '#', label: 'Twitter'   },
-  { Icon: Linkedin,  href: '#', label: 'LinkedIn'  },
-  { Icon: Github,    href: '#', label: 'GitHub'    },
-  { Icon: Instagram, href: '#', label: 'Instagram' },
+  // Add official social profile URLs here when available (e.g., LinkedIn, Twitter/X, GitHub, Instagram)
 ];
 
 const Footer = () => {
@@ -80,22 +77,24 @@ const Footer = () => {
                 </span>
               </div>
 
-              <div className="footer-socials">
-                {socials.map(({ Icon, href, label }) => (
-                  <motion.a
-                    key={label}
-                    href={href}
-                    className="footer-social"
-                    aria-label={label}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ y: -3, scale: 1.1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Icon size={15} aria-hidden="true" />
-                  </motion.a>
-                ))}
-              </div>
+              {socials.length > 0 && (
+                <div className="footer-socials">
+                  {socials.filter(({ href }) => href && href !== '#').map(({ Icon, href, label }) => (
+                    <motion.a
+                      key={label}
+                      href={href}
+                      className="footer-social"
+                      aria-label={label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ y: -3, scale: 1.1 }}
+                      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    >
+                      <Icon size={15} aria-hidden="true" />
+                    </motion.a>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Quick Links */}

@@ -20,26 +20,54 @@ const Home = ({ showSEO = true }) => {
     }
   }, [showSEO]);
 
-  const organizationSchema = {
+  const graphSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "LeopardX Technologies",
-    "url": "https://leopardxtechnology.com",
-    "logo": "https://leopardxtechnology.com/lx-logo.png",
-    "sameAs": [],
-    "description": "Enterprise Software, AI Solutions and Web Development Company"
-  };
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "LeopardX Technologies",
-    "url": "https://leopardxtechnology.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://leopardxtechnology.com/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://leopardxtechnology.com/#organization",
+        "name": "LeopardX Technologies",
+        "url": "https://leopardxtechnology.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://leopardxtechnology.com/lx-logo.png"
+        },
+        "description": "Enterprise Software, AI Solutions and Web Development Company",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-7823065239",
+          "contactType": "customer service",
+          "email": "leopardxtechnology@gmail.com"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Pune",
+          "addressRegion": "Maharashtra",
+          "addressCountry": "IN"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://leopardxtechnology.com/#website",
+        "url": "https://leopardxtechnology.com/",
+        "name": "LeopardX Technologies",
+        "publisher": {
+          "@id": "https://leopardxtechnology.com/#organization"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://leopardxtechnology.com/#webpage",
+        "url": "https://leopardxtechnology.com/",
+        "name": "LeopardX Technologies | Enterprise Software, AI & Web Development Company",
+        "isPartOf": {
+          "@id": "https://leopardxtechnology.com/#website"
+        },
+        "about": {
+          "@id": "https://leopardxtechnology.com/#organization"
+        }
+      }
+    ]
   };
 
   return (
@@ -50,7 +78,6 @@ const Home = ({ showSEO = true }) => {
           <title>LeopardX Technologies | Enterprise Software, AI & Web Development Company</title>
           <meta name="description" content="LeopardX Technologies builds enterprise software, ERP systems, AI solutions, scalable web applications, mobile apps, and custom digital products for modern businesses." />
           <meta name="keywords" content="Enterprise Software, ERP Development, AI Development, React Development, Node.js, MERN Stack, Website Development, Software Company India, LeopardX Technologies" />
-          <meta name="google-site-verification" content="GSC_VERIFICATION_TOKEN_PLACEHOLDER" />
           <link rel="canonical" href="https://leopardxtechnology.com/" />
           
           {/* Open Graph */}
@@ -69,10 +96,7 @@ const Home = ({ showSEO = true }) => {
 
           {/* Structured Data */}
           <script type="application/ld+json">
-            {JSON.stringify(organizationSchema)}
-          </script>
-          <script type="application/ld+json">
-            {JSON.stringify(websiteSchema)}
+            {JSON.stringify(graphSchema)}
           </script>
         </Helmet>
       )}

@@ -76,6 +76,20 @@ const AboutPage = () => {
     }
   ];
 
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://leopardxtechnology.com/about#webpage",
+    "url": "https://leopardxtechnology.com/about",
+    "name": "About Us | LeopardX Technologies — Modern Software Development Company",
+    "isPartOf": {
+      "@id": "https://leopardxtechnology.com/#website"
+    },
+    "publisher": {
+      "@id": "https://leopardxtechnology.com/#organization"
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -99,7 +113,10 @@ const AboutPage = () => {
         <meta name="twitter:description" content="Learn about LeopardX Technologies, our vision, mission, and how we deliver high-quality enterprise software, ERP systems, and AI solutions for modern businesses." />
         <meta name="twitter:image" content="https://leopardxtechnology.com/lx-logo.png" />
 
-        {/* Breadcrumb Schema */}
+        {/* Schemas */}
+        <script type="application/ld+json">
+          {JSON.stringify(webPageSchema)}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>

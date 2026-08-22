@@ -5,6 +5,20 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, WifiOff, UserX, Mail, Globe, Clock, ChevronRight, Lock } from 'lucide-react';
 
 const PrivacyPolicyPage = () => {
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://leopardxtechnology.com/privacy-policy#webpage",
+    "url": "https://leopardxtechnology.com/privacy-policy",
+    "name": "Privacy Policy | LeopardX Technologies — Modern Digital Solutions",
+    "isPartOf": {
+      "@id": "https://leopardxtechnology.com/#website"
+    },
+    "publisher": {
+      "@id": "https://leopardxtechnology.com/#organization"
+    }
+  };
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -25,10 +39,10 @@ const PrivacyPolicyPage = () => {
   };
 
   const privacyHighlights = [
-    { icon: <WifiOff size={20} />, text: "Works 100% Offline" },
-    { icon: <UserX size={20} />, text: "No Registration or Login Required" },
-    { icon: <ShieldCheck size={20} />, text: "No Device Permissions Requested" },
-    { icon: <Lock size={20} />, text: "Zero Personal Data Collection" }
+    { icon: <ShieldCheck size={20} />, text: "Data Protection & Privacy" },
+    { icon: <Lock size={20} />, text: "Secure Infrastructure" },
+    { icon: <UserX size={20} />, text: "No Unauthorized Data Sharing" },
+    { icon: <Globe size={20} />, text: "Transparent Client Policies" }
   ];
 
   const policySections = [
@@ -37,8 +51,8 @@ const PrivacyPolicyPage = () => {
       number: "1",
       title: "Information We Collect",
       content: [
-        "LeopardX Age Calculator is designed to protect your privacy. The application does not collect, transmit, store, or share any personal information whatsoever.",
-        "We do not collect any registration data, location data, contact lists, camera access, microphone access, photo library files, or device identifiers. No personal information is transmitted to LeopardX Technologies or any third parties."
+        "LeopardX Technologies is committed to respecting user and client privacy. When visiting our website or submitting project inquiries, we only collect information that you voluntarily provide (such as name, email address, phone number, and project details via our contact forms).",
+        "We process all user information responsibly to respond to inquiries and deliver high-quality enterprise software services."
       ]
     },
     {
@@ -46,8 +60,8 @@ const PrivacyPolicyPage = () => {
       number: "2",
       title: "How We Use Information",
       content: [
-        "The application performs age calculations locally and instantly on your device. Since no data is collected, stored, or transmitted, your details never leave your device.",
-        "Calculations are computed purely on-device in real-time, ensuring absolute security and performance speed."
+        "Information collected through our website is used solely to respond to project consultations, deliver customized ERP and web applications, provide tech support, and improve our services.",
+        "We do not sell, rent, or trade personal or client information to third parties for marketing purposes."
       ]
     },
     {
@@ -55,8 +69,8 @@ const PrivacyPolicyPage = () => {
       number: "3",
       title: "Data Security",
       content: [
-        "Since LeopardX Age Calculator does not collect or store any personal data, there is no risk of data breaches, leaks, or unauthorized access.",
-        "Your calculations exist solely in the temporary memory of your device and are cleared immediately upon closing the application."
+        "We implement robust technical and organizational security measures to protect your information against unauthorized access, loss, or alteration.",
+        "Our development practices follow industry-standard security protocols, including HTTPS encryption, secure cloud configurations, and strict access controls."
       ]
     },
     {
@@ -64,8 +78,8 @@ const PrivacyPolicyPage = () => {
       number: "4",
       title: "Third-Party Services",
       content: [
-        "We value user trust and experience. LeopardX Age Calculator does not use any third-party advertising SDKs, tracking pixels, analytics suites, or cookies.",
-        "There are no background connections to advertising networks, ensuring a clean, tracking-free offline application environment."
+        "We value user trust. Our website does not share personal data with external advertising networks or unauthorized data brokers.",
+        "Any standard service analytics integrated onto our website are strictly used to evaluate site performance and ensure proper platform operation."
       ]
     },
     {
@@ -73,8 +87,8 @@ const PrivacyPolicyPage = () => {
       number: "5",
       title: "Children's Privacy",
       content: [
-        "Our application does not collect any data, making it fully safe for children of all ages. We do not knowingly solicit or collect information from children.",
-        "It complies fully with the Children's Online Privacy Protection Act (COPPA) and international child privacy regulations."
+        "Our website and software services are directed at business professionals and modern enterprises. We do not knowingly collect personal information from children.",
+        "If you believe information regarding a minor has been submitted to us, please contact us immediately so we can remove the data."
       ]
     },
     {
@@ -82,8 +96,8 @@ const PrivacyPolicyPage = () => {
       number: "6",
       title: "Changes to This Privacy Policy",
       content: [
-        "We may update our Privacy Policy from time to time to reflect changes in our practices or regulatory compliance. Any changes will be posted on this page with an updated modification date.",
-        "We recommend reviewing this policy periodically to stay informed about our commitment to privacy."
+        "We may update our Privacy Policy from time to time to reflect changes in technical practices or regulatory requirements. Any updates will be posted on this page with a revised modification date.",
+        "We recommend checking this policy periodically to stay informed about our commitment to privacy and data protection."
       ]
     }
   ];
@@ -92,14 +106,14 @@ const PrivacyPolicyPage = () => {
     <>
       <Helmet>
         <html lang="en" />
-        <title>Privacy Policy | LeopardX Technologies — Age Calculator</title>
-        <meta name="description" content="Read the Privacy Policy for LeopardX Age Calculator. Our application does not collect, store, or share any personal information, and operates fully offline." />
-        <meta name="keywords" content="Privacy Policy, LeopardX, Age Calculator Privacy, Zero Data Collection, Offline App, GDPR Compliant" />
+        <title>Privacy Policy | LeopardX Technologies — Modern Digital Solutions</title>
+        <meta name="description" content="Read the Privacy Policy for LeopardX Technologies. Learn how we handle data protection, privacy, and security across our software services and website." />
+        <meta name="keywords" content="Privacy Policy, LeopardX Technologies, Data Protection, Software Company Privacy, Security Policy" />
         <link rel="canonical" href="https://leopardxtechnology.com/privacy-policy" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Privacy Policy | LeopardX Technologies — Age Calculator" />
-        <meta property="og:description" content="Read the Privacy Policy for LeopardX Age Calculator. Our application does not collect, store, or share any personal data." />
+        <meta property="og:title" content="Privacy Policy | LeopardX Technologies — Modern Digital Solutions" />
+        <meta property="og:description" content="Read the Privacy Policy for LeopardX Technologies. Learn how we handle data protection, privacy, and security across our software services and website." />
         <meta property="og:image" content="https://leopardxtechnology.com/lx-logo.png" />
         <meta property="og:url" content="https://leopardxtechnology.com/privacy-policy" />
         <meta property="og:type" content="website" />
@@ -107,11 +121,14 @@ const PrivacyPolicyPage = () => {
 
         {/* Twitter Cards */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Privacy Policy | LeopardX Technologies — Age Calculator" />
-        <meta name="twitter:description" content="Read the Privacy Policy for LeopardX Age Calculator. Zero personal data collected." />
+        <meta name="twitter:title" content="Privacy Policy | LeopardX Technologies — Modern Digital Solutions" />
+        <meta name="twitter:description" content="Read the Privacy Policy for LeopardX Technologies. Learn how we handle data protection, privacy, and security." />
         <meta name="twitter:image" content="https://leopardxtechnology.com/lx-logo.png" />
 
         {/* Schemas */}
+        <script type="application/ld+json">
+          {JSON.stringify(webPageSchema)}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>
@@ -129,13 +146,13 @@ const PrivacyPolicyPage = () => {
           >
             <span className="label-tag" style={{ marginBottom: 18 }}>
               <Clock size={12} style={{ marginRight: 4 }} />
-              Last Updated: July 2026
+              Last Updated: August 2026
             </span>
             <h1 className="section-title text-dark">
               Privacy <span className="text-gradient">Policy</span>
             </h1>
             <p className="section-subtitle" style={{ margin: '0 auto', marginTop: 12 }}>
-              LeopardX Age Calculator
+              LeopardX Technologies — Enterprise Software &amp; Digital Solutions
             </p>
           </motion.div>
         </div>
@@ -167,7 +184,7 @@ const PrivacyPolicyPage = () => {
                 Our Privacy Commitment
               </h2>
               <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '32px' }}>
-                LeopardX Technologies is committed to providing a secure utility application. LeopardX Age Calculator complies with Google Play Console developer privacy requirements and is optimized to run fully on-device without collecting, storing, or transmitting any user information.
+                LeopardX Technologies is committed to providing secure software solutions. We adhere to high data protection standards across all our web applications, ERP systems, and enterprise services.
               </p>
               
               <div style={{

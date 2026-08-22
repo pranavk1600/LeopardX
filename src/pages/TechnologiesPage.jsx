@@ -76,6 +76,20 @@ const TechnologiesPage = () => {
     }
   ];
 
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://leopardxtechnology.com/technologies#webpage",
+    "url": "https://leopardxtechnology.com/technologies",
+    "name": "Technologies & Stack | LeopardX Technologies — Modern Tech Solutions",
+    "isPartOf": {
+      "@id": "https://leopardxtechnology.com/#website"
+    },
+    "publisher": {
+      "@id": "https://leopardxtechnology.com/#organization"
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -99,7 +113,10 @@ const TechnologiesPage = () => {
         <meta name="twitter:description" content="Our modern technology stack: React, Node.js, MERN stack, Python, AI frameworks, cloud platforms, and enterprise ERP tools designed for scalability, speed, and safety." />
         <meta name="twitter:image" content="https://leopardxtechnology.com/lx-logo.png" />
 
-        {/* Breadcrumb Schema */}
+        {/* Schemas */}
+        <script type="application/ld+json">
+          {JSON.stringify(webPageSchema)}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
         </script>

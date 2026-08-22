@@ -11,7 +11,8 @@ const pages = [
   { loc: 'services', changefreq: 'monthly', priority: '0.8' },
   { loc: 'portfolio', changefreq: 'monthly', priority: '0.8' },
   { loc: 'technologies', changefreq: 'monthly', priority: '0.8' },
-  { loc: 'contact', changefreq: 'monthly', priority: '0.8' }
+  { loc: 'contact', changefreq: 'monthly', priority: '0.8' },
+  { loc: 'privacy-policy', changefreq: 'monthly', priority: '0.5' }
 ];
 
 const domain = 'https://leopardxtechnology.com';
